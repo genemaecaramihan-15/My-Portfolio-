@@ -1,0 +1,343 @@
+<!DOCTYPE html>    
+<html lang="en">    
+<head>      
+    <meta charset="UTF-8">      
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">      
+    <title>Portfolio - Gene Mae Caramihan</title>   
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">  
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">      
+    <style>      
+        html { scroll-behavior: smooth; }      
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; text-decoration: none; list-style: none; }      
+        body { background: #030e16; color: white; min-height: 100vh; display: flex; flex-direction: column; }      
+        .container { max-width: 1300px; margin: auto; padding: 0 10%; }      
+        header { width: 100%; padding: 40px 0; display: flex; justify-content: space-between; align-items: center; }      
+        .logo { font-size: 32px; font-weight: 800; }      
+        .logo span { color: #00bfff; }      
+        nav { display: flex; gap: 30px; align-items: center; }      
+        nav a { color: white; font-size: 16px; font-weight: 500; transition: .3s; cursor: pointer; }      
+        nav a:hover { color: #00bfff; text-shadow: 0 0 10px #00bfff; }      
+        .cv-btn { background: #ff4d79; padding: 10px 25px; border-radius: 8px; color: white; font-weight: 600; transition: .3s; }  
+        .cv-btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(255, 77, 121, 0.4); }  
+        
+        .hero { display: flex; align-items: center; justify-content: space-between; margin-top: 50px; gap: 100px; padding-bottom: 100px; position: relative; }      
+        .hero-img img { width: 400px; height: 400px; object-fit: cover; border-radius: 50%; border: 4px solid #00bfff; box-shadow: 0 0 25px rgba(0, 191, 255, 0.3); cursor: pointer; animation: float 4s ease-in-out infinite; }      
+        
+        /* NAME ANIMATION STYLES */
+        .hero-text h1 { 
+            font-size: 60px; 
+            min-height: 80px;
+            background: linear-gradient(90deg, #fff, #00bfff, #fff);
+            background-size: 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 3s linear infinite;
+        }
+        
+        /* Cursor blinking effect */
+        .typing-cursor {
+            color: #00bfff;
+            animation: blink 0.7s infinite;
+            -webkit-text-fill-color: #00bfff; /* Override the transparent gradient for the cursor */
+        }
+
+        @keyframes glow {
+            0% { background-position: 0%; }
+            100% { background-position: 200%; }
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .hero-text p { color: #bdc3c7; margin: 20px 0; }      
+        .social { display: flex; gap: 15px; margin-bottom: 30px; }      
+        .social a { width: 45px; height: 45px; border: 2px solid #00bfff; border-radius: 8px; display: flex; justify-content: center; align-items: center; color: #00bfff; font-size: 20px; transition: .4s; }      
+        .social a:hover { background: #00bfff; color: #030e16; box-shadow: 0 0 15px #00bfff; }      
+        .buttons { display: flex; gap: 20px; flex-wrap: nowrap; }      
+        .btn { padding: 14px 35px; border-radius: 8px; font-weight: 600; cursor: pointer; border: none; transition: .3s; }      
+        .btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(0, 191, 255, 0.4); }  
+        .hire { background: #00bfff; color: #030e16; }      
+        .contact { border: 2px solid #00bfff; color: white; background: transparent; }    
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }  
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-20px); } 100% { transform: translateY(0px); } }  
+    
+        section { display: none; padding: 100px 40px; position: relative; margin-top: 50px; border-radius: 30px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); }      
+        section.active { display: block; animation: fadeInUp 0.7s ease-out forwards; }  
+        section.hero.active { display: flex; }  
+        section h2 { font-size: 40px; margin-bottom: 20px; color: #00bfff; text-align: center; }      
+        section p { color: #bdc3c7; text-align: center; max-width: 800px; margin: auto; }      
+
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 40px; }      
+        .portfolio-item { position: relative; border-radius: 20px; overflow: hidden; cursor: pointer; transition: .3s; }  
+        .portfolio-item:hover { transform: translateY(-10px); box-shadow: 0 10px 25px rgba(0, 191, 255, 0.2); }
+        .portfolio-item img { width: 100%; height: 280px; object-fit: cover; display: block; transition: .5s; }      
+        .portfolio-item:hover img { transform: scale(1.1); }
+
+        .about-container { display: flex; align-items: center; justify-content: space-between; gap: 100px; margin-top: 40px; }
+        .about-text { flex: 1; text-align: left; }
+        .about-text p { text-align: left; }
+        .about-img img { width: 350px; height: 350px; object-fit: cover; border-radius: 20px; border: 4px solid #00bfff; box-shadow: 0 0 25px rgba(0, 191, 255, 0.3); cursor: pointer; }
+
+        /* CHATBOT WINDOW STYLE */
+        .chatbot-window {
+            display: none;
+            position: absolute;
+            bottom: 120px;
+            right: 0;
+            width: 320px;
+            height: 400px;
+            background: #051622;
+            border: 2px solid #00bfff;
+            border-radius: 20px;
+            z-index: 100;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+        .chat-header { background: #00bfff; color: #030e16; padding: 12px; font-weight: bold; display: flex; justify-content: space-between; }
+        .chat-messages { flex: 1; padding: 15px; overflow-y: auto; font-size: 13px; display: flex; flex-direction: column; gap: 10px; }
+        .bot-msg { background: rgba(255, 255, 255, 0.1); padding: 8px 12px; border-radius: 12px 12px 12px 0; align-self: flex-start; line-height: 1.4; }
+        .user-msg { background: #00bfff; color: #030e16; padding: 8px 12px; border-radius: 12px 12px 0 12px; align-self: flex-end; }
+        .chat-footer { display: flex; padding: 10px; background: rgba(255,255,255,0.05); }
+        .chat-footer input { flex: 1; background: transparent; border: 1px solid #00bfff; color: white; padding: 8px; border-radius: 8px; outline: none; }
+
+        .contact-container { max-width: 600px; margin: 40px auto; padding: 40px; border-radius: 25px; background: linear-gradient(145deg, #051622, #0a2a3f); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5); }
+        .contact-form { display: flex; flex-direction: column; gap: 25px; }
+        .contact-form input, .contact-form textarea { width: 100%; padding: 20px; border-radius: 15px; background: rgba(255, 255, 255, 0.1); color: white; border: 1px solid transparent; outline: none; transition: .3s; }
+        .contact-form input:focus, .contact-form textarea:focus { border-color: #00bfff; }
+        .submit-btn { background: linear-gradient(90deg, #00bfff, #0080ff); padding: 16px; border-radius: 15px; font-weight: 600; cursor: pointer; color: #030e16; border: none; }
+
+        .modal { display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); justify-content: center; align-items: center; }
+        .modal img { max-width: 90%; max-height: 80%; border-radius: 15px; }
+        .close { position: absolute; top: 20px; right: 30px; font-size: 40px; color: white; cursor: pointer; }
+        .tab-content { display: none; animation: fadeInUp 0.5s ease-out; }
+    </style>  
+</head>  
+<body>  
+    <div class="container">      
+        <header id="header-top">      
+            <div class="logo">Port<span>folio</span></div>      
+            <nav>      
+                <a onclick="toggleSection('home')">Home</a>      
+                <a onclick="toggleSection('about')">About</a>      
+                <a onclick="toggleSection('tutorials')">Tutorials</a>          
+                <a onclick="toggleSection('contact')">Contact</a>      
+                <a href="my-cv.pdf" class="cv-btn" download>Download CV</a>
+            </nav>
+        </header>   
+
+        <section id="home" class="hero active">      
+            <div class="hero-img"><img src="image 1.png" class="zoomable"></div>      
+            <div class="hero-text">       
+                <h1 id="animated-name"></h1>      
+                <p>I am a passionate web developer who enjoys creating clean and responsive websites.</p>      
+                <div class="social">      
+                    <a href="https://www.facebook.com/gene.mae.caramihan" target="_blank"><i class="fab fa-facebook-f"></i></a>          
+                    <a href="https://www.instagram.com/ghenny_02?igsh=dWhpMTVvcXVkMXJ2" target="_blank"><i class="fab fa-instagram"></i></a>      
+                    <a href="https://www.linkedin.com/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                </div>  
+                <div class="buttons">      
+                    <a onclick="toggleSection('project-view')" class="btn hire">View Project</a> 
+                    <button onclick="toggleChat()" class="btn hire">Chat with Me</button>        
+                </div>      
+            </div>
+
+            <div id="chatbot" class="chatbot-window">
+                <div class="chat-header">
+                    <span>Message Gene</span>
+                    <span style="cursor:pointer" onclick="closeChat()">×</span>
+                </div>
+                <div id="chat-box" class="chat-messages"></div>
+                <div class="chat-footer">
+                    <input type="text" id="chat-input" placeholder="Type a message...">
+                    <button onclick="handleChat()" style="background:none; border:none; color:#00bfff; margin-left:10px; cursor:pointer;"><i class="fa fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <section id="about">      
+            <div class="about-container">
+                <div class="about-text">
+                    <h2>About Me</h2>
+                    <p>I am a passionate BSIT student who enjoys exploring both technology and creativity. My course has helped me develop skills in web development, while my love for designing and editing allows me to create visually appealing and meaningful digital content. I enjoy working with design tools such as Canva, Figma, Adobe Photoshop, and Adobe Premiere to produce creative projects and improve my technical abilities. I am continuously learning and improving my skills to become a better web developer and digital designer in the future.</p>
+                </div>
+                <div class="about-img">
+                    <img src="about.jpg" class="zoomable">
+                </div>
+            </div>
+        </section>
+
+        <section id="tutorials">      
+            <h2>Improvement Tutorials</h2>      
+            <p>Below are the tutorials that helped me improve my skills.</p>
+            <div class="portfolio-grid">      
+                <div class="portfolio-item"><a href="https://youtu.be/tKT33BgKRqo" target="_blank"><img src="https://img.youtube.com/vi/tKT33BgKRqo/hqdefault.jpg"></a></div>      
+                <div class="portfolio-item"><a href="https://youtu.be/jQ1sfKIl50E" target="_blank"><img src="https://img.youtube.com/vi/jQ1sfKIl50E/hqdefault.jpg"></a></div>      
+                <div class="portfolio-item"><a href="https://youtu.be/61mkx_OV61s?si=Pnvnf-sonJSKUoKK" target="_blank"><img src="https://img.youtube.com/vi/61mkx_OV61s/hqdefault.jpg"></a></div>
+                <div class="portfolio-item"><a href="https://youtu.be/BeH1I5n-798?si=9LfTLHpcOanm0M1-" target="_blank"><img src="https://img.youtube.com/vi/BeH1I5n-798/hqdefault.jpg"></a></div>
+            </div>      
+        </section>   
+
+        <section id="project-view">      
+            <h2>My Work Portfolio</h2>
+            <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-top:30px;">      
+                <button id="btn-work" onclick="showTab('work')" class="btn hire">My Work</button>      
+                <button id="btn-achievements" onclick="showTab('achievements')" class="btn contact">Achievements</button>      
+                <button id="btn-outputs" onclick="showTab('outputs')" class="btn contact">Outputs</button>      
+            </div>      
+            
+            <div id="work" class="tab-content" style="display:block; margin-top:30px;">      
+                <p style="margin-bottom:25px;">Creative Works Using Adobe Photoshop.</p>
+                <div class="portfolio-grid">      
+                    <div class="portfolio-item"><img src="project1.jpg" class="zoomable"></div>      
+                    <div class="portfolio-item"><img src="project2.jpg" class="zoomable"></div>
+                    <div class="portfolio-item"><img src="project2.jpg" class="zoomable"></div>
+                    <div class="portfolio-item"><img src="image4.jpg" class="zoomable"></div>
+                    <div class="portfolio-item"><img src="image5.jpeg" class="zoomable"></div>
+                </div>      
+            </div>      
+            
+            <div id="achievements" class="tab-content" style="margin-top:30px;">      
+                <p style="margin-bottom:25px;">My achievements include school projects and certifications.</p>
+                <div class="portfolio-grid">
+                    <div class="portfolio-item"><img src="c1.jpg" class="zoomable"></div>
+                    <div class="portfolio-item"><img src="c2.jpg" class="zoomable"></div>
+                </div>
+            </div>
+
+            <div id="outputs" class="tab-content" style="margin-top:30px;">
+                <p style="margin-bottom:25px;">Just click the image below to see my works.</p>
+                <div class="portfolio-grid">
+                    <div class="portfolio-item"><a href="https://www.figma.com/design/K0UoxvPLlTPuqUiXQ2a4BO/Untitled?node-id=" target="_blank"><img src="https://via.placeholder.com/400x280?text=Figma+Design+1"></a></div>
+                    <div class="portfolio-item"><a href="https://www.figma.com/design/T6tgo8Js8ZMXNbnV172LVv/gene-mae-caramihan-figma" target="_blank"><img src="https://via.placeholder.com/400x280?text=Figma+Project+2"></a></div>
+                    <div class="portfolio-item"><a href="https://canva.link/zm24aqwm7zb1w6y" target="_blank"><img src="https://via.placeholder.com/400x280?text=Canva+Design"></a></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">  
+            <h2>Contact Me</h2>  
+            <div style="display:flex; justify-content:center; gap:20px; margin-top:20px; font-size:22px;">
+                <a href="mailto:genemaecaramihan@gmail.com" style="color:#00bfff;"><i class="fas fa-envelope"></i> Gmail</a>
+                <a href="https://www.facebook.com/gene.mae.caramihan" target="_blank" style="color:#00bfff;"><i class="fab fa-facebook"></i> Facebook</a>
+            </div>
+            <div class="contact-container">
+                <form class="contact-form">
+                    <input type="email" placeholder="Email" required>
+                    <textarea placeholder="Message..." required></textarea>
+                    <button class="submit-btn">Submit Message</button>
+                </form>
+            </div>
+        </section> 
+    </div>
+
+    <div class="modal" id="modal">      
+        <span class="close" id="close">&times;</span>      
+        <img id="modalImg">      
+    </div>  
+
+<script>
+    // Typing Animation Script
+    const nameText = "Gene Mae Caramihan";
+    const nameContainer = document.getElementById("animated-name");
+    let charIndex = 0;
+
+    function typeName() {
+        if (charIndex < nameText.length) {
+            nameContainer.innerHTML = nameText.substring(0, charIndex + 1) + '<span class="typing-cursor">|</span>';
+            charIndex++;
+            setTimeout(typeName, 150); // Speed of typing
+        } else {
+            // Remove cursor or keep it blinking after typing finishes
+            nameContainer.innerHTML = nameText + '<span class="typing-cursor">|</span>';
+        }
+    }
+
+    // Start typing when the page loads
+    window.onload = () => {
+        typeName();
+    };
+
+    function toggleSection(id) {
+        document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+        const target = document.getElementById(id);
+        if(target) target.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showTab(tab) {
+        document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
+        document.getElementById(tab).style.display = 'block';
+        document.getElementById("btn-work").className = (tab==='work') ? "btn hire" : "btn contact";
+        document.getElementById("btn-achievements").className = (tab==='achievements') ? "btn hire" : "btn contact";
+        document.getElementById("btn-outputs").className = (tab==='outputs') ? "btn hire" : "btn contact";
+    }
+
+    function toggleChat() {
+        const chat = document.getElementById('chatbot');
+        if (chat.style.display === 'flex') { closeChat(); } else { chat.style.display = 'flex'; }
+    }
+
+    function closeChat() {
+        const chat = document.getElementById('chatbot');
+        const box = document.getElementById('chat-box');
+        chat.style.display = 'none';
+        box.innerHTML = ""; 
+    }
+
+    function handleChat() {
+        const input = document.getElementById('chat-input');
+        const box = document.getElementById('chat-box');
+        const userMsg = input.value.trim();
+        const msg = userMsg.toLowerCase();
+        if(!userMsg) return;
+
+        box.innerHTML += `<div class="user-msg">${userMsg}</div>`;
+        input.value = "";
+        box.scrollTop = box.scrollHeight;
+
+        setTimeout(() => {
+            let reply = "I'm sorry, I didn't quite catch that. You can ask me about my skills, projects, or background!";
+            
+            if (msg.includes("hello") || msg.includes("hi")) {
+                reply = "Hello! How can I help you today?";
+            }
+            if (msg.includes("name") || msg.includes("who are you")) {
+                reply = "I am Gene Mae Caramihan, a passionate web developer and BSIT student.";
+            }
+            else if(msg.includes("about") || msg.includes("background") || msg.includes("information")) {
+                reply = "I am a BSIT student who loves web development and digital design. I strive to create responsive and creative content!";
+            } 
+            else if(msg.includes("skill") || msg.includes("tools")) {
+                reply = "My core skills include working with Canva, Figma, Adobe Photoshop, and Adobe Premiere.";
+            } 
+            else if(msg.includes("achievement")) {
+                reply = "I have worked on several system demos and earned certifications in IT and design. You can view them in my Achievements section!";
+            } 
+            else if(msg.includes("contact") || msg.includes("email")) {
+                reply = "Feel free to reach me at genemaecaramihan@gmail.com!";
+            }
+            else if(msg.includes("work") || msg.includes("project")) {
+                reply = "You can view my Photoshop and Figma designs by clicking 'View Project' on the home screen!";
+            }
+
+            box.innerHTML += `<div class="bot-msg">${reply}</div>`;
+            box.scrollTop = box.scrollHeight;
+        }, 800); 
+    }
+
+    document.getElementById('chat-input').addEventListener('keypress', (e) => { if(e.key === 'Enter') handleChat(); });
+
+    const modal = document.getElementById("modal");
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('zoomable') || (e.target.tagName === 'IMG' && e.target.closest('.portfolio-item') && !e.target.closest('a'))) {
+            modal.style.display = "flex";
+            document.getElementById("modalImg").src = e.target.src;
+        }
+    });
+    document.getElementById("close").onclick = () => modal.style.display = "none";
+</script>
+</body>    
+</html>
